@@ -82,7 +82,7 @@
 			</div>
 			<div class="mdui-card-actions">
 				<button class="mdui-btn mdui-ripple" onclick="login()">登录</button>
-				<button class="mdui-btn mdui-ripple" onclick="alert('莫得注册')">注册</button>
+				<button class="mdui-btn mdui-ripple" onclick="register()">注册</button>
 			</div>
 		</div>
 		<script type="text/javascript">
@@ -123,6 +123,38 @@
 				}
 				document.getElementById("login").style.display = "block";
 				return;
+			}
+			function register() {
+				var user = $('#user_name').val();
+				var pass = $('#password').val();
+				if (user == '') {
+					alert('用户名不能为空');
+				}
+				else if (pass == '') {
+					alert('密码不能为空');
+				}
+				else {
+					$.ajax({
+						url: "https://api.ravi.cool/th/register?u="+user+"&p="+pass,
+						async: true,
+						crossDomain: true,
+						success: function(data,status,xhr){
+							if (data['code'] == '200') {
+								alert("注册成功");
+								show();
+								change();
+							}
+							else {
+								alert(data['message']);
+							}
+							$('#password').val("");
+						},
+						error: function(){
+							alert("注册失败");
+							$('#password').val("");
+						}
+					});
+				}
 			}
 			function login() {
 				var user = $('#user_name').val();
