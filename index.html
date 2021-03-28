@@ -7,12 +7,14 @@
 		<meta name="renderer" content="webkit" />
 		<meta name="force-rendering" content="webkit" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta http-equiv='x-dns-prefetch-control' content='on'>
+		<link rel='dns-prefetch' href='https://api.cncn3.cn'>
+		<link rel='dns-prefetch' href='https://api.ravi.cool'>
 		<title>专属树洞~~~</title>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdui@1.0.0/dist/css/mdui.min.css" integrity="sha384-2PJ2u4NYg6jCNNpv3i1hK9AoAqODy6CdiC+gYiL2DVx+ku5wzJMFNdE3RoWfBIRP"
-		 crossorigin="anonymous" />
+		<link rel="stylesheet" href="mdui.min.css"/>
 
-		<script src="https://cdn.jsdelivr.net/npm/mdui@1.0.1/dist/js/mdui.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+		<script src="mdui.min.js"></script>
+		<script src="jquery.min.js"></script>
 	</head>
 	<body class="mdui-appbar-with-toolbar mdui-appbar-with-tab mdui-theme-layout-auto">
 		<div class="mdui-appbar mdui-appbar-fixed">
@@ -49,7 +51,7 @@
 			</div>
 		</div>
 		<div class="mdui-container-fluid mdui-col-xs-12" style="bottom: 0;position: fixed;">
-			<div class="mdui-card-content mdui-shadow-4 mdui-col-xs-11" style="min-height: 150px;left: 4%;position: relative;padding-top: 0px;opacity: 0.8;background-color: white;">
+			<div class="mdui-card-content mdui-shadow-4 mdui-col-xs-11" style="min-height: 150px;left: 4%;position: relative;padding-top: 0px;opacity: 0.8;background-color: white;" id="sending_card">
 				<div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-12">
 					<i class="mdui-icon material-icons">textsms</i>
 					<label class="mdui-textfield-label">说点什么吧</label>
@@ -103,13 +105,13 @@
 				if ($('body').hasClass('mdui-theme-layout-dark')) {
 					$('body').removeClass('mdui-theme-layout-dark');
 					$('body').addClass('mdui-theme-layout-light');
-					$('#send').addClass('mdui-color-pink');
+					$('#sending_card').css('background-color','white');
 					return;
 				}
 				$('body').removeClass('mdui-theme-layout-light');
 				$('body').removeClass('mdui-theme-layout-auto');
 				$('body').addClass('mdui-theme-layout-dark');
-				$('#send').removeClass('mdui-color-pink');
+				$('#sending_card').css('background-color','#303030');
 				return;
 			}
 			function show() {
