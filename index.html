@@ -200,7 +200,7 @@
 						}
 						for (var i=0; i<Object.keys(obj).length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = "<td>"+obj[i].time+"</td><td style='word-break: break-word;'>"+filterXSS(obj[i].content)+"</td>";
+							tr.innerHTML = "<td class='mdui-table-cell-checkbox'><label class='mdui-checkbox'><input type='checkbox'><i class='mdui-checkbox-icon'></i></label></td><td>"+obj[i].time+"</td><td style='word-break: break-word;'>"+filterXSS(obj[i].content)+"</td>";
 							document.getElementById("tb").appendChild(tr);
 						}
 					}
