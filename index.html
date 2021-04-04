@@ -9,7 +9,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<title>专属树洞~~~</title>
 		<link rel="stylesheet" href="mdui.min.css"/>
-
+		<script src="https://cdn.jsdelivr.net/gh/leizongmin/js-xss/dist/xss.min.js"></script>
 		<script src="mdui.min.js"></script>
 		<script src="jquery.min.js"></script>
 	</head>
@@ -199,7 +199,7 @@
 						}
 						for (var i=0; i<Object.keys(obj).length; i++) {
 							var tr = document.createElement("tr");
-							tr.innerHTML = "<td>"+obj[i].time+"</td><td style='word-break: break-word;'>"+obj[i].content+"</td>";
+							tr.innerHTML = "<td>"+obj[i].time+"</td><td style='word-break: break-word;'>"+filterXSS(obj[i].content)+"</td>";
 							document.getElementById("tb").appendChild(tr);
 						}
 					}
