@@ -17,10 +17,9 @@
 	<body class="mdui-appbar-with-toolbar mdui-appbar-with-tab mdui-theme-layout-auto">
 		<div class="mdui-appbar mdui-appbar-fixed">
 			<div class="mdui-toolbar mdui-color-blue">
-				<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
 				<span class="mdui-typo-title">专属树洞~ ヾ(≧▽≦*)o</span>
 				<div class="mdui-toolbar-spacer"></div>
-				<button onclick="javascript:change();" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '刷新'}"><i
+				<button onclick="javascript:fresh();" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '刷新'}"><i
 					 class="mdui-icon material-icons">refresh</i></button>
 				<a href="javascript:daynight();" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '夜间模式'}">
 					<i class="mdui-icon material-icons">brightness_medium</i>
@@ -55,7 +54,7 @@
 					<label class="mdui-textfield-label">说点什么吧</label>
 					<textarea class="mdui-textfield-input" id="text"></textarea>
 				</div>
-				<button id="send" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink mdui-theme-layout-light" style="position: absolute;right: 3%;bottom: 10%;">发送~</button>
+				<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink mdui-theme-layout-light" style="position: absolute;right: 3%;bottom: 10%;" onclick="send()">发送~</button>
 			</div>
 		</div>
 		<div class="mdui-card mdui-col-md-4 mdui-col-offset-md-4" id="login" style="display: none; padding-top: 10px;">
@@ -78,26 +77,9 @@
 			</div>
 			<div class="mdui-card-actions">
 				<button class="mdui-btn mdui-ripple" onclick="login()">登录</button>
-				<button class="mdui-btn mdui-ripple" onclick="alert('莫得注册')">注册</button>
+				<button class="mdui-btn mdui-ripple" onclick="register()">注册</button>
 			</div>
 		</div>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$("#send").click(function() {
-					var message = $("#text").val();
-					var url = "https://api.ravi.cool/th/write?s=" + message;
-					$.ajax({
-						url: url,
-						headers: header,
-						async: true,
-						success: function(result) {
-							$('#text').val("");
-							change();
-						}
-					});
-				});
-			});
-		</script>
 		<script>
 			function daynight() {
 				if ($('body').hasClass('mdui-theme-layout-dark')) {
@@ -120,6 +102,36 @@
 				document.getElementById("login").style.display = "block";
 				return;
 			}
+			function register() {
+				var user = $('#user_name').val();
+				var pass = $('#password').val();
+				if (user == '') {
+					alert('用户名不能为空');
+				}
+				else if (pass == '') {
+					alert('密码不能为空');
+				}
+				else {
+					$.ajax({
+						url: "https://api.ravi.cool/th/register?u="+user+"&p="+pass,
+						async: true,
+						crossDomain: true,
+						success: function(data,status,xhr){
+							if (data['code'] == '200') {
+								alert("注册成功");
+							}
+							else {
+								alert("注册失败,该用户名已注册");
+							}
+							$('#password').val("");
+						},
+						error: function(){
+							alert("注册失败");
+							$('#password').val("");
+						}
+					});
+				}
+			}
 			function login() {
 				var user = $('#user_name').val();
 				var pass = $('#password').val();
@@ -136,13 +148,9 @@
 						crossDomain: true,
 						success: function(data,status,xhr){
 							if (data['code'] == '200') {
-								header = {
-									'x-auth-token':xhr.getResponseHeader('x-auth-token'),
-								};
-								console.log(header);
 								alert("登陆成功");
 								show();
-								change();
+								fresh();
 							}
 							else {
 								alert("登陆失败");
@@ -156,10 +164,22 @@
 					});
 				}
 			}
-			function change() {
+			function send() {
+				var message = $("#text").val();
+				$.ajax({
+					url: "https://api.ravi.cool/th/write?s=" + message,
+					crossDomain: true,
+					async: true,
+					success: function(result) {
+						$('#text').val("");
+						fresh();
+					}
+				});
+			});
+			function fresh() {
 				$.ajax({
 					url: "https://api.ravi.cool/th/read",
-					headers: header,
+					crossDomain: true,
 					async: true,
 					success: function(result) {
 						var obj = eval(result);
