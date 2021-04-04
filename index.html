@@ -170,7 +170,8 @@
 			}
 			function send() {
 				var message = $("#text").val();
-				$.ajax({
+				if (message != '') {
+					$.ajax({
 					url: "https://api.ravi.cool/th/write?s=" + message,
 					xhrFields: {
 						withCredentials: true,
@@ -185,6 +186,10 @@
 						show();
 					}
 				});
+				}
+				else {
+					alert("内容不能为空");
+				}
 			}
 			function fresh() {
 				$.ajax({
