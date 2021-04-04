@@ -115,7 +115,9 @@
 					$.ajax({
 						url: "https://api.ravi.cool/th/register?u="+user+"&p="+pass,
 						async: true,
-						withCredentials: true,
+						xhrFields: {
+							withCredentials: true,
+							},
 						success: function(data,status,xhr){
 							if (data['code'] == '200') {
 								alert("注册成功");
@@ -145,7 +147,9 @@
 					$.ajax({
 						url: "https://api.ravi.cool/th/login?u="+user+"&p="+pass,
 						async: true,
-						withCredentials: true,
+						xhrFields: {
+							withCredentials: true,
+							},
 						success: function(data,status,xhr){
 							if (data['code'] == '200') {
 								alert("登陆成功");
@@ -168,7 +172,9 @@
 				var message = $("#text").val();
 				$.ajax({
 					url: "https://api.ravi.cool/th/write?s=" + message,
-					withCredentials: true,
+					xhrFields: {
+						withCredentials: true,
+						},
 					async: true,
 					success: function(result) {
 						$('#text').val("");
@@ -179,7 +185,9 @@
 			function fresh() {
 				$.ajax({
 					url: "https://api.ravi.cool/th/read",
-					withCredentials: true,
+					xhrFields: {
+						withCredentials: true,
+						},
 					async: true,
 					success: function(result) {
 						var obj = eval(result);
