@@ -1,210 +1,79 @@
-<!doctype html>
-<html lang="zh-CN">
-	<head>
-		<meta charset="utf-8">
-		<meta name="Description" content="温暖树洞 倾诉烦恼 专属树洞 树洞">
-		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, shrink-to-fit=no" />
-		<meta name="renderer" content="webkit" />
-		<meta name="force-rendering" content="webkit" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-		<meta http-equiv='x-dns-prefetch-control' content='on'>
-		<link rel='dns-prefetch' href='https://api.cncn3.cn'>
-		<link rel='dns-prefetch' href='https://api.ravi.cool'>
-		<link rel='dns-prefetch' href='https://img.cncn3.cn'>
-		<title>温暖树洞 倾诉烦恼</title>
-		<link rel="stylesheet" href="mdui.min.css"/>
-		<script src="mdui.min.js"></script>
-		<script src="jquery.min.js"></script>
-	</head>
-	<body class="mdui-appbar-with-toolbar mdui-appbar-with-tab mdui-theme-layout-auto">
-		<div class="mdui-appbar mdui-appbar-fixed">
-			<div class="mdui-toolbar mdui-color-blue">
-				<a href="javascript:;" class="mdui-btn mdui-btn-icon"><i class="mdui-icon material-icons">menu</i></a>
-				<header>
-				<span class="mdui-typo-title">专属树洞~ ヾ(≧▽≦*)o</span>
-				</header>
-				<div class="mdui-toolbar-spacer"></div>
-				<button onclick="javascript:change();" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '刷新'}"><i
-					 class="mdui-icon material-icons">refresh</i></button>
-				<a href="javascript:daynight();" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '夜间模式'}">
-					<i class="mdui-icon material-icons">brightness_medium</i>
-				</a>
-				<a href="javascript:show();" class="mdui-btn mdui-btn-icon" mdui-tooltip="{content: '登录/注册'}">
-					<i class="mdui-icon material-icons">account_circle</i>
-				</a>
-			</div>
-		</div>
-		<div class="mdui-container-fluid" style="position: absolute;top: 10%;width: -webkit-fill-available;padding-bottom: 45%;">
-			<div class="mdui-table-fluid">
-				<table class="mdui-table mdui-table-hoverable mdui-table-selectable">
-					<thead>
-						<tr>
-							<th>日期</th>
-							<th>内容</th>
-						</tr>
-					</thead>
-					<tbody id="tb">
-						<tr>
-							<td>空空如也(～￣▽￣)～</td>
-							<td>空空如也(～￣▽￣)～</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-		<div class="mdui-container-fluid mdui-col-xs-12" style="bottom: 0;position: fixed;">
-			<div class="mdui-card-content mdui-shadow-4 mdui-col-xs-11" style="min-height: 150px;left: 4%;position: relative;padding-top: 0px;opacity: 0.8;background-color: white;" id="sending_card">
-				<div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-12">
-					<i class="mdui-icon material-icons">textsms</i>
-					<label class="mdui-textfield-label">说点什么吧</label>
-					<textarea class="mdui-textfield-input" id="text"></textarea>
-				</div>
-				<button id="send" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink mdui-theme-layout-light" style="position: absolute;right: 3%;bottom: 10%;">发送~</button>
-			</div>
-		</div>
-		<div class="mdui-card mdui-col-md-4 mdui-col-offset-md-4" id="login" style="display: none; padding-top: 10px;">
-			<div class="mdui-card-media">
-				<img src="https://api.cncn3.cn/img/" />
-				<div class="mdui-card-media-covered">
-					<div class="mdui-card-primary">
-						<div class="mdui-textfield mdui-textfield-floating-label">
-							<i class="mdui-icon material-icons">account_circle</i>
-							<label class="mdui-textfield-label">用户名</label>
-							<input class="mdui-textfield-input" style="border-bottom-color: white;color: white;" id="user_name" type="text" required/>
-						</div>
-						<div class="mdui-textfield mdui-textfield-floating-label">
-							<i class="mdui-icon material-icons">lock</i>
-							<label class="mdui-textfield-label">密码</label>
-							<input class="mdui-textfield-input" style="border-bottom-color: white;color: white;" id="password" type="password" required/>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="mdui-card-actions">
-				<button class="mdui-btn mdui-ripple" onclick="login()">登录</button>
-				<button class="mdui-btn mdui-ripple" onclick="register()">注册</button>
-			</div>
-		</div>
-		<script type="text/javascript">
-			$(document).ready(function() {
-				$("#send").click(function() {
-					var message = $("#text").val();
-					var url = "https://api.ravi.cool/th/write?s=" + message;
-					$.ajax({
-						url: url,
-						headers: header,
-						async: true,
-						success: function(result) {
-							$('#text').val("");
-							change();
-						}
-					});
-				});
-			});
-		</script>
-		<script>
-			function daynight() {
-				if ($('body').hasClass('mdui-theme-layout-dark')) {
-					$('body').removeClass('mdui-theme-layout-dark');
-					$('body').addClass('mdui-theme-layout-light');
-					$('#sending_card').css('background-color','white');
-					return;
-				}
-				$('body').removeClass('mdui-theme-layout-light');
-				$('body').removeClass('mdui-theme-layout-auto');
-				$('body').addClass('mdui-theme-layout-dark');
-				$('#sending_card').css('background-color','#303030');
-				return;
-			}
-			function show() {
-				if (document.getElementById("login").style.display == "block") {
-					document.getElementById("login").style.display = "none";
-					return;
-				}
-				document.getElementById("login").style.display = "block";
-				return;
-			}
-			function register() {
-				var user = $('#user_name').val();
-				var pass = $('#password').val();
-				if (user == '') {
-					alert('用户名不能为空');
-				}
-				else if (pass == '') {
-					alert('密码不能为空');
-				}
-				else {
-					$.ajax({
-						url: "https://api.ravi.cool/th/register?u="+user+"&p="+pass,
-						async: true,
-						crossDomain: true,
-						complete: function(xhr,data){
-							if (xhr.responseJSON['code'] == '200') {
-								alert("注册成功,请继续登录");
-							}
-							else {
-								alert(xhr.responseJSON['message']);
-							}
-							$('#password').val("");
-						}
-					});
-				}
-			}
-			function login() {
-				var user = $('#user_name').val();
-				var pass = $('#password').val();
-				if (user == '') {
-					alert('用户名不能为空');
-				}
-				else if (pass == '') {
-					alert('密码不能为空');
-				}
-				else {
-					$.ajax({
-						url: "https://api.ravi.cool/th/login?u="+user+"&p="+pass,
-						async: true,
-						crossDomain: true,
-						success: function(data,status,xhr){
-							if (data['code'] == '200') {
-								header = {
-									'x-auth-token':xhr.getResponseHeader('x-auth-token'),
-								};
-								console.log(header);
-								alert("登陆成功");
-								show();
-								change();
-							}
-							else {
-								alert("登陆失败");
-							}
-							$('#password').val("");
-						},
-						error: function(){
-							alert("登陆失败");
-							$('#password').val("");
-						}
-					});
-				}
-			}
-			function change() {
-				$.ajax({
-					url: "https://api.ravi.cool/th/read",
-					headers: header,
-					async: true,
-					success: function(result) {
-						var obj = eval(result);
-						if (Object.keys(obj).length != 0) {
-							$("#tb").children("tr").remove();
-						}
-						for (var i=0; i<Object.keys(obj).length; i++) {
-							var tr = document.createElement("tr");
-							tr.innerHTML = "<td>"+obj[i].time+"</td><td style='word-break: break-word;'>"+obj[i].content+"</td>";
-							document.getElementById("tb").appendChild(tr);
-						}
-					}
-				});
-			}
-		</script>
-	</body>
+<!DOCTYPE html>
+<html  lang="zh-cn">
+<head>
+  <title>反代加速</title>
+  <meta charset="utf-8">
+  <meta name="baidu-site-verification" content="code-HO5fELmjgT" />
+  <meta name="免费,反代,github加速,反代加速" content="HTML">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preload stylesheet" href="css/foundation.min.css" as="style">
+  <!-- <script src="https://proxy.ravizhan.top/js/jquery.min.js"></script> -->
+  <!-- <script src="https://proxy.ravizhan.top/js/foundation.min.js"></script> -->
+  <!-- <script src="https://proxy.ravizhan.top/js/modernizr.js"></script> -->
+</head>
+<body>
 
+<div class="row">
+  <div class="medium-12 columns">
+    <div class="panel radius">
+      <h2>免费反代加速</h2>
+      <p>本网站旨在解决部分网站在国内访问过慢的情况</p>
+	  <p>使用香港节点反代，目前自费两个节点，<a href="https://pay.ravi.cool" target="_blank" rel="noopener">欢迎赞助</a></p>
+	  <p>本站加速节点暂不支持ipv6，ipv6流量默认走CloudFlare</p>
+      <button type="button" class="button medium">使用方法</button>
+    </div>
+	<blockquote>
+	    <p>免费服务，请勿滥用！</p>
+		<p>免费服务，请勿滥用！</p>
+		<p>免费服务，请勿滥用！</p>
+	    <cite>Ravi</cite>
+	  </blockquote>
+  </div>
+</div>
+<div class="row">
+  <div class="medium-12 columns">
+    <h3>GitHub</h3>
+    <p>国内使用香港机反代，国外使用<a href="https://www.cloudflare.com" target="_blank" rel="noopener">CloudFlare</a>提供的免费CDN进行加速</p>
+	<div class="medium-12 columns">
+		<table>
+		  <thead>
+		    <tr>
+		      <th>网站</th>
+		      <th>域名</th>
+			  <th>加速域名</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <td>Github 图片加速</td>
+		      <td>camo.githubusercontent.com</td>
+			  <td>camo.ravizhan.top</td>
+		    </tr>
+			<tr>
+			  <td>Github 静态文件加速</td>
+			  <td>github.githubassets.com</td>
+			  <td>ghassets.ravizhan.top</td>
+			</tr>
+			<tr>
+			  <td>Github 头像</td>
+			  <td>avatars.githubusercontent.com</td>
+			  <td>avatars.ravizhan.top</td>
+			</tr>
+			<tr>
+			  <td>Github releases下载</td>
+			  <td>github-releases.githubusercontent.com</td>
+			  <td>gh-res.ravizhan.top</td>
+			</tr>
+			<tr>
+			  <td>Github clone加速</td>
+			  <td>github.com</td>
+			  <td>gh.ravizhan.top</td>
+			</tr>
+		  </tbody>
+		</table>
+	</div>
+  </div>
+  </div>
+</div>
+</body>
 </html>
