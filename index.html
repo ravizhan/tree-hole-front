@@ -125,13 +125,10 @@
 							if (data['code'] == '200') {
 								alert("注册成功");
 							}
-							else {
-								alert("注册失败,该用户名已注册");
-							}
 							$('#password').val("");
 						},
 						error: function(){
-							alert("注册失败");
+							alert("注册失败,该用户名已注册");
 							$('#password').val("");
 						}
 					});
@@ -182,6 +179,10 @@
 					success: function(result) {
 						$('#text').val("");
 						fresh();
+					},
+					error: function(){
+						alert("请先登录");
+						show();
 					}
 				});
 			}
