@@ -49,8 +49,8 @@
 		<div class="mdui-container-fluid mdui-col-xs-12" style="bottom: 0;position: fixed;">
 			<div class="mdui-card-content mdui-shadow-4 mdui-col-xs-11" style="min-height: 150px;left: 4%;position: relative;padding-top: 0px;opacity: 0.8;background-color: white;">
 				<div class="mdui-textfield mdui-textfield-floating-label mdui-col-xs-12">
-					<i class="mdui-icon material-icons">textsms</i>
-					<label class="mdui-textfield-label">说点什么吧</label>
+					<i class="mdui-icon material-icons" id="textsms">textsms</i>
+					<label class="mdui-textfield-label" id="text_label">说点什么吧</label>
 					<textarea class="mdui-textfield-input" id="text"></textarea>
 				</div>
 				<button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink mdui-theme-layout-light" style="position: absolute;right: 3%;bottom: 10%;" onclick="send()">发送~</button>
@@ -95,6 +95,9 @@
 				$('body').removeClass('mdui-theme-layout-auto');
 				$('body').addClass('mdui-theme-layout-dark');
 				$('#send').removeClass('mdui-color-pink');
+				$('#textsms').css('color','#686868');
+				$('#text').css('border-bottom-color','#808080');
+				$('#text_label').css('color','#c5c5c5');
 				return;
 			}
 			function show() {
